@@ -6,7 +6,7 @@ export const menu: CoreMenu[] = [
     id: 'inicio',
     title: 'Inicio',
     // translate: 'MENU.HOME',
-    // role: [Role.SuperMonedas],
+    // role: [Role.BigPuntos],
     type: 'item',
     icon: 'home',
     url: 'personas/inicio',
@@ -15,7 +15,7 @@ export const menu: CoreMenu[] = [
   {
     id: 'corp',
     title: 'Corp',
-    // role: [Role.SuperMonedas],
+    // role: [Role.BigPuntos],
     // translate: 'MENU.PAGES.SECTION',
     type: 'collapsible',
     icon: 'coffee',
