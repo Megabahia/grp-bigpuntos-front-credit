@@ -1,66 +1,68 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {Subject} from 'rxjs';
 
-import { CoreConfigService } from '@core/services/config.service';
+import {CoreConfigService} from '@core/services/config.service';
+
+/**
+ * Bigpuntos
+ * credit
+ * Esta pantalla sirve para mostrar cuando no existe la pantalla
+ */
 
 @Component({
-  selector: 'app-error',
-  templateUrl: './error.component.html',
-  styleUrls: ['./error.component.scss']
+    selector: 'app-error',
+    templateUrl: './error.component.html',
+    styleUrls: ['./error.component.scss']
 })
-export class ErrorComponent implements OnInit {
-  public coreConfig: any;
+export class ErrorComponent implements OnInit, OnDestroy {
+    public coreConfig: any;
 
-  // Private
-  private _unsubscribeAll: Subject<any>;
+    // Private
+    private _unsubscribeAll: Subject<any>;
 
-  /**
-   * Constructor
-   *
-   * @param {CoreConfigService} _coreConfigService
-   */
-  constructor(private _coreConfigService: CoreConfigService) {
-    this._unsubscribeAll = new Subject();
 
-    // Configure the layout
-    this._coreConfigService.config = {
-      layout: {
-        navbar: {
-          hidden: true
-        },
-        footer: {
-          hidden: true
-        },
-        menu: {
-          hidden: true
-        },
-        customizer: false,
-        enableLocalStorage: false
-      }
-    };
-  }
+    constructor(private _coreConfigService: CoreConfigService) {
+        this._unsubscribeAll = new Subject();
 
-  // Lifecycle Hooks
-  // -----------------------------------------------------------------------------------------------------
+        // Configure the layout
+        this._coreConfigService.config = {
+            layout: {
+                navbar: {
+                    hidden: true
+                },
+                footer: {
+                    hidden: true
+                },
+                menu: {
+                    hidden: true
+                },
+                customizer: false,
+                enableLocalStorage: false
+            }
+        };
+    }
 
-  /**
-   * On init
-   */
-  ngOnInit(): void {
-    // Subscribe to config changes
-    this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
-      this.coreConfig = config;
-    });
-  }
+    // Lifecycle Hooks
+    // -----------------------------------------------------------------------------------------------------
 
-  /**
-   * On destroy
-   */
-  ngOnDestroy(): void {
-    // Unsubscribe from all subscriptions
-    this._unsubscribeAll.next();
-    this._unsubscribeAll.complete();
-  }
+    /**
+     * On init
+     */
+    ngOnInit(): void {
+        // Subscribe to config changes
+        this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
+            this.coreConfig = config;
+        });
+    }
+
+    /**
+     * On destroy
+     */
+    ngOnDestroy(): void {
+        // Unsubscribe from all subscriptions
+        this._unsubscribeAll.next();
+        this._unsubscribeAll.complete();
+    }
 }

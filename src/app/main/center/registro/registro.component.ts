@@ -7,6 +7,13 @@ import { takeUntil } from 'rxjs/operators';
 import { RegistroService } from './registro.service';
 import { Role } from '../../../auth/models/role';
 
+/*
+* Bigpuntos
+* credit
+* Este pantalla sirve para registar a un usuario
+* Rutas:
+* `${environment.apiUrl}/central/usuarios/create/`,
+* */
 
 @Component({
   selector: 'app-registro',
